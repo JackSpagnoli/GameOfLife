@@ -3,16 +3,13 @@ class GameOfLife {
     private char[][] board; //[x][y]
     private final char ALIVE = 'O',
             DEAD = '.';
-
     GameOfLife(boolean sizeCapped) {
         this.sizeCapped = sizeCapped;
     }
-
     void setBoard(int x, int y) {
         this.board = new char[x][y];
         innit();
     }
-
     private void innit() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -20,7 +17,6 @@ class GameOfLife {
             }
         }
     }
-
     void toggleCell(int x, int y) {
         if (this.board[x][y] == ALIVE) {
             this.board[x][y] = DEAD;
@@ -28,7 +24,6 @@ class GameOfLife {
             this.board[x][y] = ALIVE;
         }
     }
-
     private void trimBoard() {
         if (this.sizeCapped) {
             return;
@@ -67,15 +62,33 @@ class GameOfLife {
             }
         }
     }
-
     void simulate() {
         int[][] number = getNumber();
+        char[][] temp=this.board;
+        for (int i=0;i<number.length;i++){
+            for (int j=0;j<number[i].length;j++){
+                if (this.board[i][j]==ALIVE){
+                    if (number[i][j]<2){
+                        temp[i][j]=DEAD;
+                    }else if (number[i][j]>3){
+                        temp[i][j]=DEAD;
+                    }else{
+                        temp[i][j]=ALIVE;
+                    }
+                }else {
+                    if (number[i][j]==3){
+                        temp[i][j]=ALIVE;
+                    }
+                }
+            }
+        }
+        this.board=temp;
     }
-
     void simulate(int generations) {
-
+        for (int i=0;i<generations;i++){
+            simulate();
+        }
     }
-
     /**
      * surround is a 3D int array storing what modifications need to be done to x and y to catch the surrounding cells
      * surround[0][0][0] is the first modification to y before a loop
