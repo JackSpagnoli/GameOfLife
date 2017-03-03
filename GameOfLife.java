@@ -25,9 +25,7 @@ class GameOfLife {
         }
     }
     private void trimBoard() {
-        if (this.sizeCapped) {
-            return;
-        } else {
+        if (!this.sizeCapped) {
             int minx = Integer.MAX_VALUE,
                     miny = Integer.MAX_VALUE,
                     maxx = 0,
@@ -83,6 +81,7 @@ class GameOfLife {
             }
         }
         this.board=temp;
+        trimBoard();
     }
     void simulate(int generations) {
         for (int i=0;i<generations;i++){
