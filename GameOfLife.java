@@ -142,6 +142,9 @@ class GameOfLife {
                 this.board=Functions.append(this.board,read.readLine().toCharArray());
             }
         }catch (Exception ignored){}
+        if (!this.sizeCapped){
+            trimBoard();
+        }
     }
 }
 class Functions{
