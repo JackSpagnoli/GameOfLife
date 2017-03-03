@@ -116,4 +116,7 @@ class GameOfLife {
         }
         return number;
     }
+    public char[][] getBoard() {
+        return board;
+    }
 }
