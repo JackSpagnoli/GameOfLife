@@ -24,7 +24,7 @@ class GameOfLife {
             this.board[x][y]=ALIVE;
         }
     }
-    void trimBoard(){
+    private void trimBoard(){
         if (this.sizeCapped){
             return;
         }else {
@@ -62,6 +62,7 @@ class GameOfLife {
             }
         }
     }
+
 }class Functions{
     static char[][] append(char[][] array, char[] addition){
         char[][] temp=new char[array.length+1][array[0].length];
