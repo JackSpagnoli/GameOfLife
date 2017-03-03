@@ -35,29 +35,27 @@ class GameOfLife {
                     if (this.board[i][j] == ALIVE) {
                         if (i > maxx) {
                             maxx = i;
-                        } else if (i < minx) {
+                        }if (i < minx) {
                             minx = i;
-                        } else if (j > maxy) {
+                        }if (j > maxy) {
                             maxy = j;
-                        } else if (j < miny) {
+                        }if (j < miny) {
                             miny = j;
                         }
                     }
                 }
             }
-            char[][] temp = this.board; //Copies board
-            this.board = new char[(maxx - minx) + 2][(maxy - miny) + 2]; //New board with size +2 for new rows and columns
-            for (int i = 0; i < this.board[0].length; i++) { //Setting the first and last columns
-                this.board[0][i] = DEAD;
-                this.board[this.board.length - 1][i] = DEAD;
+            char[][] temp=Functions.subSet(this.board,minx,maxx); //Copies board
+            for (int i=0;i<temp.length;i++){
+                temp[i]=Functions.subSet(temp[i],miny,maxy);
             }
+            this.board = new char[(maxx - minx) + 3][(maxy - miny) + 3]; //New board with size +2 for new rows and columns
+            innit();
             for (int i = 0; i < temp.length; i++) { //Looping through the copied array
-                this.board[i][0] = DEAD; //Setting the top value to dead
                 //noinspection ManualArrayCopy
                 for (int j = 0; j < temp[i].length; j++) { //Looping through each of the copied array values
                     this.board[i + 1][j + 1] = temp[i][j]; //And copying it into the new array
                 }
-                this.board[i + 1][this.board[i + 1].length - 1] = DEAD; //Setting the bottom value to dead
             }
         }
     }
@@ -127,5 +125,21 @@ class GameOfLife {
             }
             System.out.println();
         }
+    }
+}
+class Functions{
+    static char[][] subSet(char[][] array, int s, int n){
+        char[][] temp=new char[(n-s)+1][];
+        for (int i=s, p=0; i<n+1;i++,p++){
+            temp[p]=array[i];
+        }
+        return temp;
+    }
+    static char[] subSet(char[] array, int s, int n){
+        char[] temp=new char[(n-s)+1];
+        for (int i=s, p=0; i<n+1;i++,p++){
+            temp[p]=array[i];
+        }
+        return temp;
     }
 }
