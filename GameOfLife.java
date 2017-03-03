@@ -18,10 +18,10 @@ class GameOfLife {
         }
     }
     void toggleCell(int x, int y) {
-        if (this.board[x][y] == ALIVE) {
-            this.board[x][y] = DEAD;
+        if (this.board[y][x] == ALIVE) {
+            this.board[y][x] = DEAD;
         } else {
-            this.board[x][y] = ALIVE;
+            this.board[y][x] = ALIVE;
         }
     }
     private void trimBoard() {
@@ -44,6 +44,10 @@ class GameOfLife {
                         }
                     }
                 }
+            }
+            if (minx==Integer.MAX_VALUE || miny==Integer.MAX_VALUE || maxx==0 || maxy==0){
+                this.board=new char[][]{{DEAD}};
+                return;
             }
             char[][] temp=Functions.subSet(this.board,minx,maxx); //Copies board
             for (int i=0;i<temp.length;i++){
