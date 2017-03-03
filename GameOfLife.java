@@ -53,6 +53,7 @@ class GameOfLife {
             }
             for (int i = 0; i < temp.length; i++) { //Looping through the copied array
                 this.board[i][0] = DEAD; //Setting the top value to dead
+                //noinspection ManualArrayCopy
                 for (int j = 0; j < temp[i].length; j++) { //Looping through each of the copied array values
                     this.board[i + 1][j + 1] = temp[i][j]; //And copying it into the new array
                 }
@@ -120,9 +121,9 @@ class GameOfLife {
         return board;
     }
     public void printBoard(){
-        for (int i=0;i<this.board.length;i++){
-            for (int j=0;j<this.board[i].length;j++){
-                System.out.print(this.board[i][j]);
+        for (char[] aBoard : this.board) {
+            for (char aCell: aBoard) {
+                System.out.print(aCell);
             }
             System.out.println();
         }
