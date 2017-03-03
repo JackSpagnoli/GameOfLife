@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
 class GameOfLife {
     private final boolean sizeCapped;
     private char[][] board; //[x][y]
@@ -130,6 +134,15 @@ class GameOfLife {
             System.out.println();
         }
     }
+    public void readBoard(File file){
+        try{
+            BufferedReader read=new BufferedReader(new FileReader(file));
+            this.board=new char[][]{read.readLine().toCharArray()};
+            while(true){
+                this.board=Functions.append(this.board,read.readLine().toCharArray());
+            }
+        }catch (Exception ignored){}
+    }
 }
 class Functions{
     static char[][] subSet(char[][] array, int s, int n){
@@ -144,6 +157,14 @@ class Functions{
         for (int i=s, p=0; i<n+1;i++,p++){
             temp[p]=array[i];
         }
+        return temp;
+    }
+    static char[][] append(char[][] array, char[] addition){
+        char[][] temp=new char[array.length+1][array[0].length];
+        for(int i=0;i<array.length;i++){
+            temp[i]=array[i];
+        }
+        temp[temp.length-1]=addition;
         return temp;
     }
 }
