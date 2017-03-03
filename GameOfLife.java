@@ -47,10 +47,18 @@ class GameOfLife {
                     }
                 }
             }
-            //TODO Extend the board to fit the extra cell
-            this.board=Functions.subSet(this.board,minx-1,maxx+1);
-            for (int i=0;i<this.board.length;i++){
-                this.board[i]=Functions.subSet(this.board[i],miny-1,maxy+1);
+            char[][] temp=this.board; //Copies board
+            this.board=new char[(maxx-minx)+2][(maxy-miny)+2]; //New board with size +2 for new rows and columns
+            for (int i=0;i<this.board[0].length;i++){ //Setting the first and last columns
+                this.board[0][i]=DEAD;
+                this.board[this.board.length-1][i]=DEAD;
+            }
+            for (int i=0;i<temp.length;i++){ //Looping through the copied array
+                this.board[i][0]=DEAD; //Setting the top value to dead
+                for (int j=0;j<temp[i].length;j++){ //Looping through each of the copied array values
+                    this.board[i+1][j+1]=temp[i][j]; //And copying it into the new array
+                }
+                this.board[i+1][this.board[i+1].length-1]=DEAD; //Setting the bottom value to dead
             }
         }
     }
